@@ -1,7 +1,6 @@
 package mbdlabs.presenation.notes.wordcount;
 
 import io.vavr.API;
-import io.vavr.collection.Stream;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -20,10 +19,13 @@ public class DeclarativeExample {
     public static void main(String[] args) throws IOException {
 
         // count
-        Map<String, Long> wordCount = Files.lines(Paths.get("./src/main/resources/shakespeare.txt"))
+        Map<String, Long> wordCount =
+                Files.lines(Paths.get("./src/main/resources/shakespeare.txt"))
                 .flatMap(line -> Arrays.stream(line.split("\\W")))
                 .map(String::toUpperCase)
-                .collect(Collectors.groupingBy(Function.identity(), Collectors.counting()));
+                .collect(Collectors.groupingBy(
+                        Function.identity(),
+                        Collectors.counting()));
 
         // print
         wordCount.entrySet().stream()
