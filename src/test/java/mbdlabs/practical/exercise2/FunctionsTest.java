@@ -46,6 +46,8 @@ public class FunctionsTest {
             }
         };
 
+        CheckedFunction1<String, URL> urlMapper2 = URL::new;
+        urlMapper = urlMapper2.unchecked();
 
         List<URL> urlList = endpointList.map(urlMapper);
 
@@ -68,6 +70,9 @@ public class FunctionsTest {
         Function1<String, String> reverseThenUppercase = null;
 
         // TODO
+        reverseString = s -> CharSeq.of(s).reverse().toString();
+        uppercase = String::toUpperCase;
+        reverseThenUppercase = reverseString.andThen(uppercase);
 
         assertThat(reverseThenUppercase.apply("rvav")).isEqualTo("VAVR");
     }
@@ -85,6 +90,7 @@ public class FunctionsTest {
         Function1<String, Option<String>> upperSafe = null;
 
         // TODO
+        upperSafe = Function1.lift(upper);
 
         assertThat(upperSafe.apply("vavr")).isEqualTo(Option.some("VAVR"));
         assertThat(upperSafe.apply(null)).isEqualTo(Option.none());
@@ -106,7 +112,7 @@ public class FunctionsTest {
 
         Function1<String, String> cachedShuffle = null;
         // TODO
-
+        cachedShuffle = shuffle.memoized();
 
         String shuffleABC1 = cachedShuffle.apply("ABC");
         String shuffleABC2 = cachedShuffle.apply("ABC");
@@ -134,9 +140,7 @@ public class FunctionsTest {
 
         Function1<String, String> buildHttpsUri = null;
         // TODO
-
-
-
+        buildHttpsUri = buildUri.apply("https");
         List<String> endpointListB = domainList.map(buildHttpsUri);
 
         assertThat(endpointListA).contains("https://vavr.io");
@@ -170,7 +174,7 @@ public class FunctionsTest {
 
 
         // TODO memoize
-
+        isPrime = isPrime.memoized();
 
         List<Integer> randomIntegers = Stream.continually(() -> (int) (Math.random() * 100))
                 .take(1000).toList();

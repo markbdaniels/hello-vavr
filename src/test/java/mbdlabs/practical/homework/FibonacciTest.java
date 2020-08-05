@@ -78,7 +78,11 @@ public class FibonacciTest {
      * <p>
      */
     private static int fibFunctional(int n) {
-        return -1;
+        return Stream.of(1, 1)
+                .appendSelf(self -> self.zip(self.tail()).map(t -> t._1 + t._2))
+                .take(n)
+                .lastOption()
+                .getOrElse(0);
     }
 
     /**
@@ -107,9 +111,16 @@ public class FibonacciTest {
      * Bonus points for making use of memoization
      */
     private static int fibFunctionalRecursive(int n) {
-        return -1;
+        return fibFunctionalRecursiveMemoized.apply(n);
     }
 
+    private final static Function1<Integer, Integer> fibFunctionalRecursive = (n) -> {
+        if (n == 0 || n == 1) {
+            return n;
+        }
+        return FibonacciTest.fibFunctionalRecursiveMemoized.apply(n - 2) + FibonacciTest.fibFunctionalRecursiveMemoized.apply(n - 1);
+    };
+    private final static Function1<Integer, Integer> fibFunctionalRecursiveMemoized = fibFunctionalRecursive.memoized();
 
     /**
      * TODO - make test pass

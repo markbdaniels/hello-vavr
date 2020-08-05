@@ -9,7 +9,7 @@ import mbdlabs.practical.exercise5.other.domain.FeaturedProduct;
 import mbdlabs.practical.exercise5.other.domain.Product;
 import mbdlabs.practical.exercise5.other.domain.ProductCategory;
 import mbdlabs.practical.exercise5.other.domain.UserDiscountProfile;
-import org.junit.jupiter.api.Test;
+import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;

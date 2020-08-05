@@ -25,7 +25,7 @@ public class CollectionsTest {
     void test_CharSeq_range() {
         CharSeq rangeClosed = null;
         // TODO
-
+        rangeClosed = CharSeq.rangeClosed('a', 'z');
         assertThat(rangeClosed.toString()).isEqualTo("abcdefghijklmnopqrstuvwxyz");
     }
 
@@ -36,7 +36,7 @@ public class CollectionsTest {
     void test_CharSeq_repeat_char() {
         CharSeq repeat = null;
         // TODO
-
+        repeat = CharSeq.repeat('a', 3);
         assertThat(repeat.toString()).isEqualTo("aaa");
     }
 
@@ -49,7 +49,7 @@ public class CollectionsTest {
 
         CharSeq repeat2 = null;
         // TODO
-
+        repeat2 = vavr.repeat(3);
         assertThat(repeat2.toString()).isEqualTo("VavrVavrVavr");
     }
 
@@ -62,7 +62,7 @@ public class CollectionsTest {
 
         CharSeq vavrExclamation = null;
         // TODO
-
+        vavrExclamation = vavr.append('!');
         assertThat(vavrExclamation.toString()).isEqualTo("Vavr!");
     }
 
@@ -75,7 +75,7 @@ public class CollectionsTest {
 
         CharSeq vavrIsCool = null;
         // TODO
-
+        vavrIsCool = vavr.appendAll(CharSeq.of(" is cool"));
         assertThat(vavrIsCool.toString()).isEqualTo("Vavr is cool");
     }
 
@@ -88,7 +88,7 @@ public class CollectionsTest {
 
         IndexedSeq<CharSeq> combinations = null;
         // TODO
-
+        combinations = oneTwoThree.combinations();
         assertThat(combinations).contains(
                 CharSeq('1'),
                 CharSeq('2'),
@@ -108,7 +108,7 @@ public class CollectionsTest {
 
         IndexedSeq<CharSeq> permutations = null;
         // TODO
-
+        permutations = oneTwoThree.permutations();
         assertThat(permutations).contains(
                 CharSeq("123"),
                 CharSeq("132"),
@@ -127,7 +127,7 @@ public class CollectionsTest {
 
         CharSeq filter = null;
         // TODO
-
+        filter = vavr.reject(c -> c == 'a');
         assertThat(filter.toString()).isEqualTo("Vvr");
     }
 
@@ -140,7 +140,7 @@ public class CollectionsTest {
 
         CharSeq pad = null;
         // TODO
-
+        pad = vavr.leftPadTo(10, ' ');
         assertThat(pad.toString()).isEqualTo("      Vavr");
     }
 
@@ -153,7 +153,7 @@ public class CollectionsTest {
 
         Tuple2<CharSeq, CharSeq> partition = null;
         // TODO
-
+        partition = vavr.partition(Character::isUpperCase);
         assertThat(partition).isEqualTo(Tuple.of(CharSeq("V"), CharSeq("avr")));
     }
 
@@ -166,7 +166,7 @@ public class CollectionsTest {
 
         CharSeq reverse = null;
         // TODO
-
+        reverse = oneTwoThree.reverse();
         assertThat(reverse.mkString()).isEqualTo("321");
     }
 
@@ -179,7 +179,7 @@ public class CollectionsTest {
 
         CharSeq rotate = null;
         // TODO
-
+        rotate = oneTwoThree.rotateLeft(1);
         assertThat(rotate.mkString()).isEqualTo("231");
     }
 
@@ -192,7 +192,7 @@ public class CollectionsTest {
 
         CharSeq shuffle = null;
         // TODO
-
+        shuffle = oneTwoThree.shuffle();
         assertThat(shuffle.mkString()).isNotEqualTo("123456789");
         assertThat(shuffle.containsAll(CharSeq("123456789"))).isTrue();
     }
@@ -206,7 +206,7 @@ public class CollectionsTest {
         List<Integer> list = null;
 
         // TODO
-
+        list = List.rangeClosed(0, 10);
         assertThat(list).contains(0, 1, 2, 3, 4, 5, 6, 7, 8, 9);
     }
 
@@ -218,7 +218,7 @@ public class CollectionsTest {
         List<Integer> list = List.of(1, 2, 3);
 
         // TODO
-
+        list = list.map(i -> i * 10);
         assertThat(list).contains(10, 20, 30);
     }
 
@@ -230,7 +230,7 @@ public class CollectionsTest {
         List<Integer> list = List.rangeClosed(-5, 5);
 
         // TODO
-
+        list = list.filter(i -> i < 0);
         assertThat(list).isEqualTo(List.of(-5, -4, -3, -2, -1));
     }
 
@@ -243,7 +243,7 @@ public class CollectionsTest {
 
         Number sum = null;
         // TODO
-
+        sum = list.sum();
         assertThat(sum).isEqualTo(6L);
     }
 
@@ -256,7 +256,7 @@ public class CollectionsTest {
 
         Option<Integer> min = null;
         // TODO
-
+        min = list.min();
         assertThat(min).isEqualTo(Some(1));
     }
 
@@ -271,6 +271,8 @@ public class CollectionsTest {
         List<CharSeq> splitByCharacter = null;
 
         // TODO
+        splitByWord = list.flatMap(s -> s.split("\\W"));
+        splitByCharacter = list.flatMap(s -> s.split(""));
 
         assertThat(splitByWord).contains(
                 CharSeq("Hello"),
@@ -300,7 +302,8 @@ public class CollectionsTest {
         List<Integer> list = List.of(1, 2, 3);
 
         // TODO
-
+        list = list.prepend(0);
+        list = list.append(4);
         assertThat(list).isEqualTo(List.rangeClosed(0, 4));
     }
 
@@ -312,7 +315,7 @@ public class CollectionsTest {
         List<Integer> list = List.of(1, 2, 3, 1, 2, 3);
 
         // TODO
-
+        list = list.distinct();
         assertThat(list).isEqualTo(List.rangeClosed(1, 3));
     }
 
@@ -325,7 +328,7 @@ public class CollectionsTest {
 
         Integer sum = null;
         // TODO
-
+        sum = list.fold(0, Integer::sum);
         assertThat(sum).isEqualTo(55);
     }
 
@@ -339,7 +342,7 @@ public class CollectionsTest {
         Stream<Integer> actual = null;
 
         //TODO
-
+        actual = Stream.rangeClosed(1, 5);
         assertThat(actual).isEqualTo(Stream.of(1, 2, 3, 4, 5));
     }
 
@@ -352,7 +355,7 @@ public class CollectionsTest {
         Stream<Integer> actual = null;
 
         //TODO
-
+        actual = Stream.from(1).take(5);
         assertThat(actual).isEqualTo(Stream.of(1, 2, 3, 4, 5));
     }
 
@@ -365,7 +368,7 @@ public class CollectionsTest {
         Stream<Integer> actual = null;
 
         // TODO
-
+        actual = Stream.continually(1).take(5);
         assertThat(actual).isEqualTo(Stream.of(1, 1, 1, 1, 1));
     }
 
@@ -379,7 +382,7 @@ public class CollectionsTest {
         Stream<Integer> actual = null;
 
         //TODO
-
+        actual = stream.cycle(3);
         assertThat(actual).isEqualTo(Stream.of(1, 2, 3, 1, 2, 3, 1, 2, 3));
     }
 }

@@ -45,7 +45,20 @@ public class CompositionTest {
      * TODO implement function
      */
     public static double applyCoupons(double total, List<COUPON> coupons) {
-        return 0.00;
+        List<List<COUPON>> permutations = coupons.permutations();
+
+        // squish all permutations into one function using composition
+        List<Function1<Double, Double>> combined = permutations
+                .map(
+                        permutation -> permutation
+                                .map(coupon -> coupon.getDiscountFunction())
+                                // composition
+                                .fold(i -> i, (f1, f2) -> f1.andThen(f2))
+                );
+
+
+        Option<Double> max = combined.map(f -> f.apply(total)).max();
+        return max.getOrElse(0.00);
     }
 
 

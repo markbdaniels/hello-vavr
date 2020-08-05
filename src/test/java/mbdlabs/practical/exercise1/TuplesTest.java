@@ -21,6 +21,7 @@ public class TuplesTest {
         Tuple3<String, String, Integer> user = null;
 
         // TODO
+        user = Tuple.of("Sade", "Clayton", 26);
 
         assertThat(user._1).isEqualTo("Sade");
         assertThat(user._2).isEqualTo("Clayton");
@@ -35,6 +36,9 @@ public class TuplesTest {
         Tuple3<String, String, Integer> user = Tuple.of("Fatema", "Lynn", 32);
 
         // TODO
+        user = user.map(
+                (f, l, a) -> Tuple.of(l, f, a)
+        );
 
         assertThat(user._1).isEqualTo("Lynn");
         assertThat(user._2).isEqualTo("Fatema");
@@ -52,6 +56,9 @@ public class TuplesTest {
 
         String actual = null;
         // TODO
+        actual = user.apply(
+                (f, l, a) -> String.format("%s %s age: %d", f, l, a)
+        );
 
         assertThat(actual).isEqualTo("Jae Diaz age: 28");
     }
@@ -65,6 +72,7 @@ public class TuplesTest {
         Tuple3<String, String, Integer> user = Tuple.of("Fahad", "Copeland", 19);
 
         // TODO
+        user = user.update3(26);
 
         assertThat(user._3).isEqualTo(26);
     }
@@ -80,6 +88,7 @@ public class TuplesTest {
 
         Tuple3<String, String, Integer> actual = null;
         // TODO
+        actual = user.append(30);
 
         assertThat(actual).isEqualTo(Tuple.of("Samera", "Hurst", 30));
     }
@@ -94,6 +103,7 @@ public class TuplesTest {
 
         Tuple3<String, String, Integer> actual = null;
         // TODO
+        actual = user.concat(Tuple.of(30));
 
         assertThat(actual).isEqualTo(Tuple.of("Samera", "Hurst", 30));
     }

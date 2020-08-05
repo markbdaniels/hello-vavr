@@ -171,8 +171,12 @@ public class ValuesTest {
 
         Function1<Integer, String> fizzBuzz = null;
         // TODO
-
-
+        fizzBuzz = i -> firstStep.apply(i)
+                .flatMap(checkFizzBuzz)
+                .flatMap(checkFizz)
+                .flatMap(checkBuzz)
+                .flatMap(lastStep)
+                .swap().get();
 
         List<String> out = Stream.rangeClosed(1, 100)
                 .map(fizzBuzz)

@@ -69,7 +69,19 @@ public class TwoSumTest {
      * return Right if there is a solution
      */
     private static Either<String, Tuple2<Integer, Integer>> twoSumFunctional(int[] nums, int target) {
-        return null;
+        Function2<Tuple2<Integer, Integer>, Tuple2<Integer, Integer>, Boolean> testSum = (t1, t2) -> (t1._1 + t2._1) == target;
+
+        Iterator<Tuple2<Tuple2<Integer, Integer>, Tuple2<Integer, Integer>>> allPairs =
+                Stream.ofAll(nums)
+                        .zipWithIndex()// maps to Tuple2 as [element, index]
+                        .crossProduct();// cross product of all elements [[element, index],[element, index]]
+
+        Option<Tuple2<Integer, Integer>> option = allPairs
+                .filter(pair -> pair._1._2 != pair._2._2)
+                .find(pair -> testSum.apply(pair._1, pair._2))// find first to match target
+                .map(pair -> pair.apply((t1, t2) -> Tuple.of(t1._2, t2._2)));
+
+        return option.toEither("No two sum solution");
     }
 
 

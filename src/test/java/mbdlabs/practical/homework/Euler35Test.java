@@ -30,7 +30,12 @@ public class Euler35Test {
      * * memoization
      */
     public static int circularPrimes(int n) {
-        return -1;
+        final Predicate<Integer> memoizedIsPrime = Function1.of(Euler35Test::isPrime).memoized()::apply;
+        return Stream.rangeClosed(2, n)
+                .filter(memoizedIsPrime)
+                .map(Euler35Test::rotations)
+                .filter(list -> list.forAll(memoizedIsPrime))
+                .length();
     }
 
     /**

@@ -84,6 +84,25 @@ public class SpecialsService {
      * * The userProfilerService is a heavy weight webservice call - it would be nice if we could cache the result lookup per category
      */
     public List<FeaturedProduct> getFeaturedProductsV2(final Long userId, final int limit) {
-        return null;
+
+        // maps Product to Tuple(Product, UserDiscountProfile). Function result is cached on product category.
+        // If an error occurred the Option will be empty
+        Function1<Product, Option<Tuple2<Product, UserDiscountProfile>>> calculateUserDiscountProfileByCategory =
+                Function((Product p) ->
+                        Try.of(() -> Tuple.of(p, userProfilerService.calculateUserDiscountProfileByCategory(userId, p.getProductCategory().getId())))
+                                .onFailure((e) -> printf("Unable to retrieve discount profile\n", e.getMessage()))
+                                .toOption()
+                ).memoized();
+
+        return productCategoryRepository.findFeaturedCategories()
+                .map(ProductCategory::getId)
+                .map(productRepository::findFeaturedProductsByCategoryId)
+                .flatMap(Function.identity())
+                .map(calculateUserDiscountProfileByCategory)
+                .flatMap(Function.identity()) // filters out Option.None and unpacks Option.Some
+                .filter(t -> t._2.isDiscountable())
+                .map(FeaturedProduct::new)
+                .shuffle()
+                .take(limit);
     }
 }
