@@ -27,4 +27,14 @@ public class Customer {
     public LocalDate getDob() {
         return dob;
     }
+
+
+    @Override
+    public String toString() {
+        return "Customer{" +
+                "name='" + name + '\'' +
+                ", email='" + email + '\'' +
+                ", dob=" + dob +
+                '}';
+    }
 }
