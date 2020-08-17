@@ -9,7 +9,7 @@ import mbdlabs.practical.exercise5.other.domain.FeaturedProduct;
 import mbdlabs.practical.exercise5.other.domain.Product;
 import mbdlabs.practical.exercise5.other.domain.ProductCategory;
 import mbdlabs.practical.exercise5.other.domain.UserDiscountProfile;
-import org.junit.jupiter.api.Test;
+import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
@@ -75,7 +75,7 @@ public class SpecialsServiceTest {
         when(userProfilerService.calculateUserDiscountProfileByCategory(1L, 2L)).thenReturn(buildUserDiscountProfile(false));
         when(userProfilerService.calculateUserDiscountProfileByCategory(1L, 3L)).thenThrow(new UserProfilerService.DiscountProfileException());
 
-        List<FeaturedProduct> featuredProducts = specialsService.getFeaturedProducts(1L, 10);
+        List<FeaturedProduct> featuredProducts = specialsService.getFeaturedProductsV2(1L, 10);
 
         featuredProducts.forEach(API::println);
         assertThat(featuredProducts).hasSize(3);
