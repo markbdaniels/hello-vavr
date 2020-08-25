@@ -34,7 +34,6 @@ public class ValuesTest {
 
         Option<String> actual = null;
         // TODO
-        actual = foo.map(String::toUpperCase);
 
         assertThat(actual.get()).isEqualTo("VAVR");
     }
@@ -50,8 +49,6 @@ public class ValuesTest {
 
         Option<String> actual = null;
         // TODO
-        actual = foo.filter(s -> false);
-
 
         assertThat(actual.getOrElse("None")).isEqualTo("None");
     }
@@ -76,8 +73,6 @@ public class ValuesTest {
 
         String actual = null;
         // TODO
-        actual = input.flatMap(Function.identity())
-                .mkString(" ");
 
         assertThat(actual).isEqualTo("Hello Vavr");
     }
@@ -111,9 +106,7 @@ public class ValuesTest {
 
         List<String> actual = Stream.rangeClosed(1, 10)
                 // TODO
-                .map(i -> Try.of(() -> dodgyComputation.apply(i))
-                        .onFailure(err -> printf("Error occurred:%s\n", err))
-                ).flatMap(Function.identity())
+                .map(i -> "")
                 .toList();
 
         List<String> expected = List.of("one", "two", "three", "four", "five", "six");
@@ -132,8 +125,6 @@ public class ValuesTest {
         Either<String, Integer> left = null;
 
         // TODO
-        right = Either.right(10);
-        left = Either.left("Represents error");
 
 
         // right
@@ -171,7 +162,6 @@ public class ValuesTest {
 
         Function1<Integer, String> fizzBuzz = null;
         // TODO
-
 
 
         List<String> out = Stream.rangeClosed(1, 100)
