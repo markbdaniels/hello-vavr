@@ -1,1 +1,2 @@
-Practival VAVR introduction with a few assignments.
+Practical component of my introduction to functional programming using VAVR presentation. 
+Exercises can be found in: src/test/java/medlabs/practical/
